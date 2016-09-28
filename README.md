@@ -20,7 +20,9 @@ require("weex-marquee");
 ```html
 <template>
 	<scroller class="wrapper">
-		<marquee marqueelist="{{marqueeList}}" timefn="ease-out" duration="{{duration}}" fontheight="50" fontsize="40" interval="{{interval}}" class="marquee"></marquee>
+		<marquee marqueelist="{{marqueeList}}" timefn="ease-out" duration="{{duration}}" lineheight="50" fontsize="40" interval="{{interval}}" >
+			<text repeat="list in marqueeList" class="text" style="color:{{color}}">{{list}}</text>
+		</marquee>
 		<text>一个有十个数据,0~9</text>
 	</scroller>
 </template>
@@ -36,10 +38,15 @@ require("weex-marquee");
 	align-items: center; 
 	justify-content: center;
 }
+.text{
+	/*以下类型最好和marquee组件上的lineheight,fontsize相同,否则样式不一致*/
+	font-size:40;
+	line-height: 50;
+}
 </style>
 
 <script>
-require("./components/marquee.we");
+require("weex-marquee");
 module.exports = {
 	data: {
 		marqueeList:[
@@ -62,10 +69,25 @@ module.exports = {
 
 1. `marqueelist`:这是你的数据.
 2. `timefn`:动画函数,包括"ease","ease-in","ease-out","liner"等等,默认为"ease-out".
-3. `duration`:单次动画持续时间.默认500毫秒
-4. `fontheight`:字体高度.默认40
-5. `fontsize`:字体大小.默认30
-6. `interval`:每个动画间隔时间.默认2000毫秒
+3. `duration`:单次动画持续时间,默认500毫秒.
+4. `lineheight`:字体高度,默认40.
+5. `fontsize`:字体大小,默认30.
+6. `interval`:每个动画间隔时间,默认2000毫秒.
+7. `firsttext`:手动设置第一个数据显示.
+
+`firsttext`属性使用注意:如果你的数据和上面的例子一样不需要更改,那么这个属性你是不需要的设置的.但是有时候我们拿到数据需要改变以下:
+
+```html
+<text repeat="list in marqueeList" class="text" style="color:{{color}}">{{text}}:{{list}}</text>
+```
+
+这时候你就需要手动设置第一个元素的文本显示了,否则marquee没有无限滚动效果,我们需要这样设置:
+
+```html
+<marquee marqueelist="{{marqueeList}}" timefn="ease-out" duration="{{duration}}" lineheight="50" fontsize="40" interval="{{interval}}" firsttext="{{text}}:{{marqueeList[0]}}" class="marquee">
+	<text repeat="list in marqueeList" class="text" style="color:{{color}}">{{text}}:{{list}}</text>
+</marquee>
+```
 
 ## 其它
 

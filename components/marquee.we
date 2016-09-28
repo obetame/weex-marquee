@@ -1,16 +1,20 @@
 <template>
-	<div class="wrapper" style="height:{{fontheight}}">
+	<div class="wrapper" style="height:{{lineheight}}">
 		<div id="marquee" class="marquee">
-			<text repeat="list in marqueelist" class="text" style="color:{{color}};font-height:{{fontheight}};font-size:{{fontsize}};line-height:{{fontheight}}">{{text}}:{{list}}</text>
+			<content></content>
+			<!-- <text repeat="list in marqueelist" class="text" style="color:{{color}};font-height:{{fontheight}};font-size:{{fontsize}};line-height:{{fontheight}}">{{text}}:{{list}}</text> -->
+			<text style="color:{{color}};font-size:{{fontsize}};line-height:{{lineheight}}">{{firsttext===''?marqueelist[0]:firsttext}}</text>
 		</div>
 	</div>
 </template>
 
 <style>
-	.wrapper { 
-		width: 750;
-		overflow: hidden;
-	}
+.wrapper { 
+	overflow: hidden;
+}
+.marquee{
+	flex-direction: column;
+}
 </style>
 
 <script>
@@ -20,9 +24,8 @@ require('weex-components');
 var timemarquee;
 module.exports = {
 	data: {
-		color: '#ff0000',
-		text: '',
-		fontheight:"40",//字体高度
+		firsttext:"",//指定第一个数据(有时候需要定制),如果为空则默认为marqueelist的第一个数据
+		lineheight:"40",//字行高度
 		fontsize:"30",//字体大小
 		index:0,//记录当前指向
 		marqueelist:[],//数据
@@ -34,11 +37,11 @@ module.exports = {
 	},
 	created() {
 		this.color = '#ff0000';
-		this.text = 'This is marquee Test.';
-		this.marqueelist = this.marqueelist.concat(this.marqueelist[0]);//将开头的一个数据0追加到最后,0~9变成0~0
+		this.text = 'this is a test';
+		// this.marqueelist = this.marqueelist.concat(this.marqueelist[0]);//将开头的一个数据0追加到最后,0~9变成0~0
 	},
 	ready(){
-		let length = this.marqueelist.length;//记录数组长度
+		let length = this.marqueelist.length+1;//记录数组长度
 		let step = 100/length;//记录步数
 
 		timemarquee = setInterval(()=>{
@@ -67,7 +70,7 @@ module.exports = {
 					},0);
 				});
 				
-				this.index = 1;//定位到第二个这里
+				this.index = 1;//定位到第2个这里
 			}
 		},this.interval);
 	},
