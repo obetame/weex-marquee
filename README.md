@@ -5,10 +5,14 @@ weex custom component---marquee,can Infinite scrolling.可以无限滚动.
 
 ## 安装
 
+```javascript
+npm install weex-marquee --save
+```
+
 下载本库然后引用组件:
 
 ```javascript
-require("./components/marquee.we");
+require("weex-marquee");
 ```
 
 ## 使用
@@ -63,7 +67,7 @@ module.exports = {
 5. `fontsize`:字体大小.默认30
 6. `interval`:每个动画间隔时间.默认2000毫秒
 
-## 扩展
+## 其它
 
 因为时间有限,并不能考虑所有的使用问题,所以如果你有能力可以自己动手扩展一下,完成后如果觉得不错可以贡献一下你的代码.
 
