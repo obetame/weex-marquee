@@ -1,6 +1,6 @@
 {
   "name": "weex-marquee",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "weex custom component---marquee,can Infinite scrolling",
   "main": "./index.js",
   "scripts": {
